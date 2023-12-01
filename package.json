@@ -8,9 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix",
+    "lint:fix": "eslint src/**/*.{js,jsx,ts,tsx} --fix --color",
     "format": "prettier --write .",
-    "precommit": "lint-staged"
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -20,7 +20,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run precommit"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
