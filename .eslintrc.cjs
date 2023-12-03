@@ -24,7 +24,13 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
   ],
-  plugins: ['react', 'react-refresh', 'prettier', 'import'],
+  plugins: [
+    'react',
+    'react-refresh',
+    'prettier',
+    'import',
+    '@emotion',
+  ],
   ignorePatterns: ['node_modules', 'dist', 'build'],
   overrides: [],
 
@@ -41,13 +47,17 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'react/prefer-stateless-function': 'off', //
+    'react/prefer-stateless-function': 'off',
     'react/jsx-filename-extension': [
       'warn',
       { extensions: ['.js', '.jsx'] },
     ],
     'import/no-unresolved': ['error', { caseSensitive: false }],
     'no-unused-vars': 'warn',
+    '@emotion/jsx-import': 'error',
+    '@emotion/import-from-emotion': 'error',
+    '@emotion/styled-import': 'error',
+    'react/no-unknown-property': ['error', { ignore: ['css'] }],
     'space-before-function-paren': [
       'warn',
       { anonymous: 'always', named: 'never' },

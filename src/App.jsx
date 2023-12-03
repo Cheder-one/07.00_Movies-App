@@ -1,10 +1,12 @@
 import { Component } from 'react';
+import { Col } from 'antd';
 
-import MovieGallery from './app/components/movieGallery/MovieGallery';
 import {
   fetchMoviesByPopular,
   fetchGenres,
-} from './app/components/service/requestMethods';
+} from './app/service/requestMethods';
+import MovieGallery from './app/components/movieGallery/MovieGallery';
+import './App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -31,9 +33,12 @@ class App extends Component {
 
   render() {
     const { isLoading, movies, genres } = this.state;
+    console.log(movies);
 
     return !isLoading ? (
-      <MovieGallery movies={movies.results} genres={genres} />
+      <Col span={18} offset={3}>
+        <MovieGallery movies={movies.results} genres={genres} />
+      </Col>
     ) : (
       <div>Loading...</div>
     );

@@ -4,9 +4,9 @@ import MovieCard from './MovieCard';
 
 function MovieGallery({ movies, genres }) {
   return (
-    <Row gutter={[36, 36]}>
+    <Row className="movie-gallery" gutter={[36, 36]}>
       {movies.map((movie) => (
-        <Col xs={24} xl={12} key={movie.id}>
+        <Col key={movie.id} xs={24} xl={12}>
           <MovieCard
             id={movie.id}
             title={movie.title}
