@@ -1,4 +1,4 @@
-import { AuthToken } from '../utils';
+import { AUTH_TOKEN } from '../utils';
 
 async function movieRequest(
   method,
@@ -10,7 +10,7 @@ async function movieRequest(
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: AuthToken,
+      Authorization: AUTH_TOKEN,
       ...header,
     },
     body: bodyData ? JSON.stringify(bodyData) : null,

@@ -1,19 +1,90 @@
+@mixin title-font {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+@mixin date-font {
+  color: #827e7e;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 183.333%;
+}
+
+@mixin overview-font {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 183.333%;
+}
+
+$shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+
 .movie-card {
-  width: 28rem;
-  height: 17.5rem;
   flex-shrink: 0;
+  box-shadow: $shadow-2;
 
-  &__poster {
-    width: 11.5rem;
-    height: 17.5rem;
-    flex-shrink: 0;
+  .ant-col {
+    padding: 0 !important;
+  }
 
+  .movie-card-poster {
     & > img {
       width: 100%;
+      flex-shrink: 0;
     }
   }
 
-  &__info {
-    padding-left: 1.25rem;
+  .movie-card-info {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px !important;
+
+    .movie-card-header {
+      * > {
+        margin-top: 8px;
+      }
+
+      &__title {
+        display: block;
+        padding-top: 10px;
+        @include title-font();
+      }
+
+      &__date {
+        @include date-font();
+      }
+
+      &__genres {
+        cursor: pointer;
+        code {
+          margin: 0;
+        }
+      }
+    }
+
+    .movie-card-body {
+      flex-shrink: 0;
+
+      &__overview {
+        margin-top: 8px;
+        @include overview-font();
+      }
+    }
+
+    .movie-card-footer {
+      margin-top: auto;
+
+      &__rating {
+        margin-bottom: 20px;
+      }
+    }
   }
 }

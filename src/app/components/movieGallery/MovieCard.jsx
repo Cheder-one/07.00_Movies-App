@@ -1,18 +1,10 @@
-/** @jsx jsx */
-import { css, jsx } from '@emotion/react';
 import PropTypes from 'prop-types';
-import { Row, Col, Typography } from 'antd';
+import { Row, Col, Space, Rate, Typography } from 'antd';
 
 import './MovieCard.scss';
-import { imageDomain } from '../../utils';
-import StarsRating from '../starsRating/StarsRating';
+import { IMAGE_DOMAIN } from '../../utils';
 
 const { Text } = Typography;
-
-const myStyle = css`
-  color: red;
-  font-size: 16px;
-`;
 
 function MovieCard({
   title,
@@ -24,45 +16,42 @@ function MovieCard({
   overview,
 }) {
   const renderGenres = (ids) => {
-    const matchedGenres = ids.map((id) =>
-      genres.find((item) => item.id === id)
-    );
-
-    return matchedGenres.map(({ id, name }) => (
-      <Text code key={id}>
-        {name}
-      </Text>
-    ));
+    return ids
+      .map((id) => genres.find((item) => item.id === id))
+      .map(({ id, name }) => (
+        <Text key={id} code className="cursor-pointer">
+          {name}
+        </Text>
+      ));
   };
 
   return (
     <Row className="movie-card" gutter={20}>
-      <Col span={9} className="movie-card__poster">
+      <Col className="movie-card-poster" span={9}>
         <img
           alt={title}
-          src={`${imageDomain}/w220_and_h330_face${posterPath}`}
+          src={`${IMAGE_DOMAIN}/w220_and_h330_face${posterPath}`}
         />
       </Col>
-      <Col span={15} className="movie-card__info">
-        <div className="movie-card__info-header">
-          <h5>{title}</h5>
-          <p>{renderGenres(genreIds)}</p>
-          <p>{releaseDate}</p>
-          <p>{voteAverage}</p>
+      <Col className="movie-card-info" span={15}>
+        <div className="movie-card-header">
+          <h5 className="movie-card-header__title">{title}</h5>
+          <p className="movie-card-header__date">{releaseDate}</p>
+          <Space className="movie-card-header__genres" size={8}>
+            {renderGenres(genreIds)}
+          </Space>
         </div>
-
-        <div css={{ color: 'hotpink' }}>dsa</div>
-        <div
-          css={css`
-            color: green;
-          `}
-        >
-          dsad
+        <div className="movie-card-body">
+          <p className="movie-card-body__overview">{overview}</p>
         </div>
-
-        <div className="movie-card__info-overview">{overview}</div>
-        <div className="movie-card__info-rating">
-          <StarsRating stars={voteAverage} />
+        <div className="movie-card-footer">
+          <Rate
+            className="movie-card-footer__rating"
+            disabled
+            allowHalf
+            count={10}
+            defaultValue={voteAverage}
+          />
         </div>
       </Col>
     </Row>
