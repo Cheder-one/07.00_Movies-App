@@ -1,0 +1,32 @@
+@mixin title-font {
+  color: #000;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 140%;
+}
+
+@mixin date-font {
+  color: #827e7e;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 183.333%;
+}
+
+@mixin overview-font {
+  color: #000;
+  font-family: Inter;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 183.333%;
+}
+
+$shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+
+.movie-card {
+  //
+}

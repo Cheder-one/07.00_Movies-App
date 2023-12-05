@@ -1,3 +1,5 @@
 .movie-gallery {
-  margin: 38px 0 38px;
+  &--box {
+    padding-bottom: 38px;
+  }
 }

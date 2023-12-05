@@ -4,9 +4,14 @@ import { Col } from 'antd';
 import {
   fetchMoviesByPopular,
   fetchGenres,
-} from './app/service/requestMethods';
-import MovieGallery from './app/components/movieGallery/MovieGallery';
+} from './service/requestMethods';
 import './App.scss';
+import {
+  MovieGallery,
+  NavTabs,
+  Pagination,
+  Search,
+} from './app/components';
 
 class App extends Component {
   constructor(props) {
@@ -36,8 +41,10 @@ class App extends Component {
     console.log(movies);
 
     return !isLoading ? (
-      <Col span={18} offset={3}>
+      <Col className="content-wrapper" span={18} offset={3}>
+        <NavTabs />
         <MovieGallery movies={movies.results} genres={genres} />
+        <Pagination totalItems={movies.total_results} />
       </Col>
     ) : (
       <div>Loading...</div>

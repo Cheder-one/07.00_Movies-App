@@ -1,14 +1,12 @@
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
-import { cropOverview } from '../../utils';
-
 import './MovieGallery.scss';
-import MovieCard from './MovieCard';
+import MovieCard from '../movieCard/MovieCard';
 
 function MovieGallery({ movies, genres }) {
   return (
-    <Row className="movie-gallery" gutter={[36 + 20, 36]}>
+    <Row className="movie-gallery movie-gallery--box">
       {movies.map((movie) => (
         <Col key={movie.id} xs={24} xl={12}>
           <MovieCard
@@ -16,7 +14,7 @@ function MovieGallery({ movies, genres }) {
             title={movie.title}
             genres={genres}
             genreIds={movie.genre_ids}
-            overview={cropOverview(movie.overview)}
+            overview={movie.overview}
             releaseDate={movie.release_date}
             voteAverage={movie.vote_average}
             posterPath={movie.poster_path}

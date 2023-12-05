@@ -26,7 +26,7 @@ function MovieCard({
   };
 
   return (
-    <Row className="movie-card" gutter={20}>
+    <Row className="movie-card movie-card--box">
       <Col className="movie-card-poster" span={9}>
         <img
           alt={title}
@@ -34,20 +34,25 @@ function MovieCard({
         />
       </Col>
       <Col className="movie-card-info" span={15}>
-        <div className="movie-card-header">
-          <h5 className="movie-card-header__title">{title}</h5>
-          <p className="movie-card-header__date">{releaseDate}</p>
-          <Space className="movie-card-header__genres" size={8}>
-            {renderGenres(genreIds)}
-          </Space>
-        </div>
+        <Row>
+          <Col span={18}>
+            <div className="movie-card-header">
+              <h5 className="movie-card-header__title">{title}</h5>
+              <p className="movie-card-header__date">{releaseDate}</p>
+              <Space className="movie-card-header__genres" size={8}>
+                {renderGenres(genreIds)}
+              </Space>
+            </div>
+          </Col>
+          <Col span={4} />
+        </Row>
         <div className="movie-card-body">
           <p className="movie-card-body__overview">{overview}</p>
         </div>
+
         <div className="movie-card-footer">
           <Rate
             className="movie-card-footer__rating"
-            disabled
             allowHalf
             count={10}
             defaultValue={voteAverage}

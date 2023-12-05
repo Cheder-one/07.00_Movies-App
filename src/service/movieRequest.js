@@ -1,4 +1,4 @@
-import { AUTH_TOKEN } from '../utils';
+import { AUTH_TOKEN } from '../app/utils';
 
 async function movieRequest(
   method,

@@ -1,7 +1,7 @@
 import movieRequest from './movieRequest';
 
 export const fetchMoviesByPopular = () => {
-  const queryString = `include_adult=false&include_video=false&language=en-US&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200`;
+  const queryString = `include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200`;
 
   return movieRequest('GET', `/discover/movie?${queryString}`)
     .then((response) => response)
