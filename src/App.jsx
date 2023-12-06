@@ -1,17 +1,12 @@
 import { Component } from 'react';
 import { Col } from 'antd';
 
-import {
-  fetchMoviesByPopular,
-  fetchGenres,
-} from './service/requestMethods';
 import './App.scss';
 import {
-  MovieGallery,
-  NavTabs,
-  Pagination,
-  Search,
-} from './app/components';
+  fetchMovieGenres,
+  fetchMoviesByPopular,
+} from './service/requestMethods';
+import { MovieGallery, NavTabs, Pagination } from './app/components';
 
 class App extends Component {
   constructor(props) {
@@ -28,7 +23,7 @@ class App extends Component {
     try {
       this.setState({
         movies: await fetchMoviesByPopular(),
-        genres: await fetchGenres(),
+        genres: await fetchMovieGenres(),
         isLoading: false,
       });
     } catch (error) {

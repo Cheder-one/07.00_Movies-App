@@ -8,7 +8,7 @@ export const fetchMoviesByPopular = () => {
     .catch((error) => console.log(error));
 };
 
-export const fetchGenres = () => {
+export const fetchMovieGenres = () => {
   return movieRequest('GET', `/genre/movie/list`)
     .then((response) => response.genres)
     .catch((error) => console.log(error));

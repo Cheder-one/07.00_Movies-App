@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Row, Col, Space, Rate, Typography } from 'antd';
+import { Row, Col, Space, Rate, Typography, Flex } from 'antd';
 
 import './MovieCard.scss';
 import { IMAGE_DOMAIN } from '../../utils';
@@ -27,37 +27,40 @@ function MovieCard({
 
   return (
     <Row className="movie-card movie-card--box">
-      <Col className="movie-card-poster" span={9}>
+      <Col className="movie-card__poster" span={9}>
         <img
           alt={title}
           src={`${IMAGE_DOMAIN}/w220_and_h330_face${posterPath}`}
         />
       </Col>
-      <Col className="movie-card-info" span={15}>
+      <Col className="movie-card__info" span={15}>
         <Row>
-          <Col span={18}>
-            <div className="movie-card-header">
-              <h5 className="movie-card-header__title">{title}</h5>
-              <p className="movie-card-header__date">{releaseDate}</p>
-              <Space className="movie-card-header__genres" size={8}>
+          <Col span={20}>
+            <div className="movie-card__header">
+              <h5 className="movie-card__title">{title}</h5>
+              <p className="movie-card__date">{releaseDate}</p>
+              <Space className="movie-card__genres" size={8}>
                 {renderGenres(genreIds)}
               </Space>
             </div>
           </Col>
-          <Col span={4} />
+          <Col span={4}>
+            <Flex justify="end">8.8</Flex>
+          </Col>
         </Row>
-        <div className="movie-card-body">
-          <p className="movie-card-body__overview">{overview}</p>
-        </div>
 
-        <div className="movie-card-footer">
+        <Row className="movie-card__body">
+          <p className="movie-card__overview">{overview}</p>
+        </Row>
+
+        <Row className="movie-card__footer">
           <Rate
-            className="movie-card-footer__rating"
+            className="movie-card__rating"
             allowHalf
             count={10}
             defaultValue={voteAverage}
           />
-        </div>
+        </Row>
       </Col>
     </Row>
   );

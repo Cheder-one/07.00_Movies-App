@@ -6,7 +6,7 @@ function Search() {
   return (
     <Input
       className="movie-search movie-search--box"
-      placeholder="Basic usage"
+      placeholder="Type to search..."
     />
   );
 }

@@ -1,4 +1,4 @@
-import { Tabs, Flex } from 'antd';
+import { Tabs } from 'antd';
 
 import './NavTabs.scss';
 import Search from '../search/Search';
