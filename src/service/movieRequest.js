@@ -31,8 +31,7 @@ async function movieRequest(
     return data;
   } catch (error) {
     // TODO реализовать обработку исключений + Alert
-    console.log(error);
-    return null;
+    throw new Error(error);
   }
 }
 

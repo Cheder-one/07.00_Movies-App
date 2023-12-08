@@ -36,7 +36,7 @@ module.exports = {
 
   // 0 - off 1 - warn 2 - error
   rules: {
-    indent: ['warn', 2],
+    indent: ['off', 2],
     'prettier/prettier': 'warn',
     'linebreak-style': ['warn', 'unix'],
     quotes: ['error', 'single', { allowTemplateLiterals: true }],

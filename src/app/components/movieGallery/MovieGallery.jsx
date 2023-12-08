@@ -37,7 +37,7 @@ MovieGallery.propTypes = {
       overview: PropTypes.string.isRequired,
       release_date: PropTypes.string.isRequired,
       vote_average: PropTypes.number.isRequired,
-      poster_path: PropTypes.string.isRequired,
+      poster_path: PropTypes.string,
     })
   ).isRequired,
   genres: PropTypes.arrayOf(

@@ -3,5 +3,13 @@ import Pagination from './pagination/Pagination';
 import MovieCard from './movieCard/MovieCard';
 import MovieGallery from './movieGallery/MovieGallery';
 import NavTabs from './navigation/NavTabs';
+import Loader from './Loader';
 
-export { NavTabs, MovieCard, MovieGallery, Pagination, Search };
+export {
+  Loader,
+  NavTabs,
+  MovieCard,
+  MovieGallery,
+  Pagination,
+  Search,
+};

@@ -1,23 +1,46 @@
+// eslint-disable-next-line
+import qs from 'qs';
+
 import movieRequest from './movieRequest';
 
-export const fetchMoviesByPopular = () => {
-  const queryString = `include_adult=false&include_video=false&language=ru-RU&page=1&sort_by=vote_average.desc&without_genres=99,10755&vote_count.gte=200`;
+export const fetchMoviesByPopular = async (page) => {
+  const params = qs.stringify({
+    page,
+    language: 'ru-RU',
+    include_adult: false,
+    include_video: false,
+    sort_by: 'vote_average.desc',
+    without_genres: '99,10755',
+    'vote_count.gte': 200,
+  });
 
-  return movieRequest('GET', `/discover/movie?${queryString}`)
-    .then((response) => response)
-    .catch((error) => console.log(error));
+  const response = await movieRequest(
+    'GET',
+    `/discover/movie?${params}`
+  );
+  return response;
 };
 
-export const fetchMovieGenres = () => {
-  return movieRequest('GET', `/genre/movie/list`)
-    .then((response) => response.genres)
-    .catch((error) => console.log(error));
+export const fetchMovieGenres = async () => {
+  // prettier-ignore
+  const response = await movieRequest(
+    'GET', 
+    `/genre/movie/list`
+  );
+  return response.genres;
 };
 
-export const fetchMoviesByQuery = (query, page) => {
-  const params = `query=${query}&include_adult=false&language=ru-RU&page=${page}`;
+export const fetchMoviesByQuery = async (query, page) => {
+  const params = qs.stringify({
+    query,
+    page,
+    language: 'ru-RU',
+    include_adult: false,
+  });
 
-  movieRequest('GET', `/search/movie?${params}`)
-    .then((response) => response)
-    .catch((err) => console.log(err));
+  const response = await movieRequest(
+    'GET',
+    `/search/movie?${params}`
+  );
+  return response;
 };

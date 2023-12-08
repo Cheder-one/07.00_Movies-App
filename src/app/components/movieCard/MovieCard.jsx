@@ -68,7 +68,7 @@ function MovieCard({
 
 MovieCard.propTypes = {
   title: PropTypes.string.isRequired,
-  posterPath: PropTypes.string.isRequired,
+  posterPath: PropTypes.string,
   releaseDate: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(
     PropTypes.shape({
@@ -79,6 +79,10 @@ MovieCard.propTypes = {
   genreIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   voteAverage: PropTypes.number.isRequired,
   overview: PropTypes.string.isRequired,
+};
+
+MovieCard.defaultProps = {
+  posterPath: null,
 };
 
 export default MovieCard;

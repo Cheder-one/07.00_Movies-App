@@ -1,4 +1,5 @@
-import useContentOverflow from './useContentOverflow';
+import Debounce from './Classes/Debounce';
+import useContentOverflow from './Functions/useContentOverflow';
+import useDebounce from './Functions/useDebounce';
 
-// eslint-disable-next-line import/prefer-default-export
-export { useContentOverflow };
+export { Debounce, useDebounce, useContentOverflow };
