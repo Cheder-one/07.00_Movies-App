@@ -1,4 +1,5 @@
 import { Input } from 'antd';
+import PropTypes from 'prop-types';
 
 import './Search.scss';
 
@@ -16,5 +17,9 @@ function Search({ onInputChange }) {
     />
   );
 }
+
+Search.propTypes = {
+  onInputChange: PropTypes.func.isRequired,
+};
 
 export default Search;

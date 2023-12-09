@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Space, Rate, Typography, Flex } from 'antd';
 
 import './MovieCard.scss';
-import { IMAGE_DOMAIN } from '../../utils';
+import { GenreList, Poster, RateRing } from './index';
 
 const { Text } = Typography;
 
@@ -15,44 +15,33 @@ function MovieCard({
   voteAverage,
   overview,
 }) {
-  const renderGenres = (ids) => {
-    return ids
-      .map((id) => genres.find((item) => item.id === id))
-      .map(({ id, name }) => (
-        <Text key={id} code className="cursor-pointer">
-          {name}
-        </Text>
-      ));
-  };
-
   return (
     <Row className="movie-card movie-card--box">
       <Col className="movie-card__poster" span={9}>
-        <img
-          alt={title}
-          src={`${IMAGE_DOMAIN}/w220_and_h330_face${posterPath}`}
-        />
+        <Poster title={title} posterPath={posterPath} />
       </Col>
+
       <Col className="movie-card__info" span={15}>
         <Row>
-          <Col span={20}>
+          <Col className="movie-card__head" span={24}>
             <div className="movie-card__header">
-              <h5 className="movie-card__title">{title}</h5>
-              <p className="movie-card__date">{releaseDate}</p>
-              <Space className="movie-card__genres" size={8}>
-                {renderGenres(genreIds)}
-              </Space>
+              <div className="movie-card__title">{title}</div>
+              <div className="movie-card__rate-ring">
+                <RateRing rate={voteAverage} />
+              </div>
             </div>
-          </Col>
-          <Col span={4}>
-            <Flex justify="end">8.8</Flex>
+            <div className="movie-card__date">{releaseDate}</div>
+            <GenreList
+              className="movie-card__genres"
+              ids={genreIds}
+              genres={genres}
+            />
           </Col>
         </Row>
 
         <Row className="movie-card__body">
-          <p className="movie-card__overview">{overview}</p>
+          <div className="movie-card__overview">{overview}</div>
         </Row>
-
         <Row className="movie-card__footer">
           <Rate
             className="movie-card__rating"

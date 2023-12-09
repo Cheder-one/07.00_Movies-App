@@ -30,7 +30,6 @@ async function movieRequest(
     const data = await response.json();
     return data;
   } catch (error) {
-    // TODO реализовать обработку исключений + Alert
     throw new Error(error);
   }
 }

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Pagination as Paginate, Flex } from 'antd';
 
 import './Pagination.scss';
@@ -21,5 +22,11 @@ function Pagination({ totalItems, onPageChange, currPage }) {
     </Flex>
   );
 }
+
+Pagination.propTypes = {
+  totalItems: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+  currPage: PropTypes.number.isRequired,
+};
 
 export default Pagination;

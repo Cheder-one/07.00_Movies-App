@@ -50,16 +50,25 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
     flex-direction: column;
   }
 
-  &__header {
+  &__head {
     & > * {
       margin-top: 8px;
     }
   }
 
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
   &__title {
-    margin-top: 10px;
     cursor: pointer;
     @include title-font();
+  }
+
+  &__rate-ring {
+    display: flex;
+    justify-content: end;
   }
 
   &__date {

@@ -1,5 +1,5 @@
-import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
+import { Row, Col, Empty, Flex } from 'antd';
 
 import './MovieGallery.scss';
 import MovieCard from '../movieCard/MovieCard';
@@ -24,6 +24,11 @@ function MovieGallery({ movies, genres }) {
           />
         </Col>
       ))}
+      {!movies.length && (
+        <Col span={24}>
+          <Empty description="No movies found" />
+        </Col>
+      )}
     </Row>
   );
 }
