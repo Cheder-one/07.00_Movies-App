@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { Row, Col, Space, Rate, Typography, Flex } from 'antd';
+import { Row, Col, Rate } from 'antd';
 
 import './MovieCard.scss';
 import { GenreList, Poster, RateRing } from './index';
-
-const { Text } = Typography;
 
 function MovieCard({
   title,
@@ -13,6 +11,7 @@ function MovieCard({
   genres,
   genreIds,
   voteAverage,
+  // popularity,
   overview,
 }) {
   return (
@@ -67,6 +66,7 @@ MovieCard.propTypes = {
   ).isRequired,
   genreIds: PropTypes.arrayOf(PropTypes.number).isRequired,
   voteAverage: PropTypes.number.isRequired,
+  // popularity: PropTypes.number.isRequired,
   overview: PropTypes.string.isRequired,
 };
 

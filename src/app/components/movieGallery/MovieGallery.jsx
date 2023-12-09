@@ -1,10 +1,48 @@
 import PropTypes from 'prop-types';
-import { Row, Col, Empty, Flex } from 'antd';
+import { Row, Col, Empty } from 'antd';
 
 import './MovieGallery.scss';
 import MovieCard from '../movieCard/MovieCard';
 
 function MovieGallery({ movies, genres }) {
+  const API_KEY = '3bda6d944feadb981c676c7e24256c78';
+  const GUEST_SESSION_ID = 'e9c7010adc83ca691529bdced74da492';
+  const REQUEST_TOKEN = 'a59d958b33b43c17c864325977f005ba0e550b2c';
+
+  const MOVIE_ID = 550;
+  const RATING = 10;
+
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'Content-Type': 'application/json;charset=utf-8',
+      // Authorization:
+      //   'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzYmRhNmQ5NDRmZWFkYjk4MWM2NzZjN2UyNDI1NmM3OCIsInN1YiI6IjY1NmFjM2JmZDQ2NTM3MDBjNWU3NDQ5NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.w0U2Lwvbt2zIO8WLXaXOkvVcwg0kJQ6SSW7OGIwvyyQ',
+    },
+    body: JSON.stringify({ value: RATING }),
+  };
+
+  // fetch(
+  //   `https://api.themoviedb.org/3/movie/${MOVIE_ID}/rating?api_key=${API_KEY}&guest_session_id=${GUEST_SESSION_ID}`,
+  //   options
+  // )
+  //   .then((response) => response.json())
+  //   .then((response) => console.log(response))
+  //   .catch((err) => console.error(err));
+
+  //--------------------------
+
+  options.method = 'GET';
+  delete options.body;
+
+  fetch(
+    `https://api.themoviedb.org/3/guest_session/${GUEST_SESSION_ID}/rated/movies?api_key=${API_KEY}`
+  )
+    .then((response) => response.json())
+    .then((response) => console.log(response))
+    .catch((err) => console.error(err));
+
   return (
     <Row
       className="movie-gallery movie-gallery--box"
@@ -20,6 +58,7 @@ function MovieGallery({ movies, genres }) {
             overview={movie.overview}
             releaseDate={movie.release_date}
             voteAverage={movie.vote_average}
+            popularity={movie.popularity}
             posterPath={movie.poster_path}
           />
         </Col>
