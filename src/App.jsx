@@ -10,6 +10,7 @@ import {
   Pagination,
 } from './app/components';
 import {
+  createGuestSession,
   fetchMovieGenres,
   fetchMoviesByPopular,
   fetchMoviesByQuery,
@@ -37,6 +38,7 @@ class App extends Component {
       genres: await fetchMovieGenres(),
       isLoading: false,
     });
+    createGuestSession();
   }
 
   getMoviesByQuery = async (query, page) => {
@@ -84,8 +86,12 @@ class App extends Component {
       <>
         {!isLoading ? (
           <Col className="content-wrapper" span={18} offset={3}>
-            <NavTabs onInputChange={this.handleInputChange} />
-            <MovieGallery movies={movies.results} genres={genres} />
+            <NavTabs
+              movies={movies.results}
+              genres={genres}
+              onInputChange={this.handleInputChange}
+            />
+            {/* <MovieGallery movies={movies.results} genres={genres} /> */}
             <Pagination
               currPage={page}
               totalItems={movies.total_results}

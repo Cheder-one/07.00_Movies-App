@@ -1,3 +1,3 @@
-import { AUTH_TOKEN, IMAGE_DOMAIN } from './constants';
+import { API_KEY, AUTH_TOKEN, IMAGE_DOMAIN } from './constants';
 
-export { IMAGE_DOMAIN, AUTH_TOKEN };
+export { API_KEY, IMAGE_DOMAIN, AUTH_TOKEN };

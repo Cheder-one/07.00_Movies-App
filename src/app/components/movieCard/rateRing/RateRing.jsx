@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 function RateRing({ rate }) {
+  const rateValue = rate.toFixed(1);
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +24,7 @@ function RateRing({ rate }) {
         dominantBaseline="middle"
         fill="black"
       >
-        {rate}
+        {rateValue}
       </text>
     </svg>
   );

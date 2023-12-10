@@ -1,16 +1,16 @@
-import { AUTH_TOKEN } from '../app/utils';
+// import { AUTH_TOKEN } from '../app/utils';
 
 async function movieRequest(
   method,
   url,
-  header = null,
-  bodyData = null
+  bodyData = null,
+  header = null
 ) {
   const options = {
     method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: AUTH_TOKEN,
+      // Authorization: AUTH_TOKEN,
       ...header,
     },
     body: bodyData ? JSON.stringify(bodyData) : null,

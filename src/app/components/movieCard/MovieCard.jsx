@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import { Row, Col, Rate } from 'antd';
 
 import './MovieCard.scss';
+import { sendMovieRating } from '../../../service';
+
 import { GenreList, Poster, RateRing } from './index';
 
 function MovieCard({
+  id,
   title,
   posterPath,
   releaseDate,
@@ -14,6 +17,14 @@ function MovieCard({
   // popularity,
   overview,
 }) {
+  const handleRateChange = (rate) => {
+    if (!rate) return; // TODO Удалить установленную оценку
+
+    sendMovieRating(id, rate).then((data) => {
+      console.log(data);
+    });
+  };
+
   return (
     <Row className="movie-card movie-card--box">
       <Col className="movie-card__poster" span={9}>
@@ -46,6 +57,7 @@ function MovieCard({
             className="movie-card__rating"
             allowHalf
             count={10}
+            onChange={handleRateChange}
             defaultValue={voteAverage}
           />
         </Row>
@@ -55,6 +67,7 @@ function MovieCard({
 }
 
 MovieCard.propTypes = {
+  id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   posterPath: PropTypes.string,
   releaseDate: PropTypes.string.isRequired,
