@@ -3,9 +3,9 @@ import { Component } from 'react';
 import { Tabs } from 'antd';
 
 import './NavTabs.scss';
-import Search from '../search/Search';
 import RatedMovies from '../ratedMovies/RatedMovies';
-import MovieGallery from '../movieGallery/MovieGallery';
+// eslint-disable-next-line import/no-cycle
+import { MoviesPage } from '../../layout';
 
 const createTabItem = (item, name) => ({
   label: name,
@@ -27,19 +27,21 @@ class NavTabs extends Component {
   };
 
   renderSearch() {
-    const { onInputChange, movies, genres } = this.props;
+    const { props } = this;
     return (
-      <>
-        <Search {...{ onInputChange }} />
-        <MovieGallery {...{ movies, genres }} />
-      </>
+      <MoviesPage
+        movies={props.movies}
+        genres={props.genres}
+        currPage={props.currPage}
+        onInputChange={props.onInputChange}
+        onPageChange={props.onPageChange}
+      />
     );
   }
 
   renderRated() {
     const { tabKey } = this.state;
     const { genres } = this.props;
-
     return <RatedMovies {...{ genres, tabKey }} />;
   }
 
@@ -57,10 +59,17 @@ class NavTabs extends Component {
   }
 }
 
-// NavTabs.propTypes = {
-//   onInputChange: PropTypes.func.isRequired,
-//   movies: PropTypes.array.isRequired,
-//   genres: PropTypes.array.isRequired,
-// };
+NavTabs.propTypes = {
+  movies: PropTypes.object.isRequired,
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  currPage: PropTypes.number.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onPageChange: PropTypes.func.isRequired,
+};
 
 export default NavTabs;

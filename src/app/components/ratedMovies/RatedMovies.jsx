@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { getSessionRatedMovies } from '../../../service';
 import MovieGallery from '../movieGallery/MovieGallery';
@@ -52,5 +53,15 @@ class RatedMovies extends Component {
     );
   }
 }
+
+RatedMovies.propTypes = {
+  genres: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  tabKey: PropTypes.string.isRequired,
+};
 
 export default RatedMovies;

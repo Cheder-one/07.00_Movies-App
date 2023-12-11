@@ -30,9 +30,7 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 .movie-card {
   height: 280px;
   overflow: hidden;
-
-  // &--box {
-  // }
+  box-shadow: $shadow-2;
 
   &__poster {
     height: 280px;
@@ -45,7 +43,7 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 
   &__info {
     height: 100%;
-    padding-left: 20px;
+    padding: 0 10px 0 20px;
     display: flex;
     flex-direction: column;
   }
@@ -69,6 +67,7 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
   &__rate-ring {
     display: flex;
     justify-content: end;
+    margin-left: 5px;
   }
 
   &__date {
@@ -102,7 +101,90 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 
   &__rating {
     font-size: 1.2vw;
-    margin-top: auto;
     margin-bottom: 10px;
+  }
+}
+
+/* ---- MOBILE ---- */
+@media screen and (max-width: 1199.9px) {
+  .movie-card {
+    // height: 245px;
+
+    &--box {
+      padding: 10px;
+    }
+
+    &__poster {
+      min-width: 60px;
+      height: 100%;
+      margin-right: 12px;
+
+      img {
+        // width: 30% !important;
+        // height: 100% !important;
+      }
+    }
+
+    &__info {
+      padding: 0;
+    }
+
+    &__head {
+      flex: 1;
+      // & > * {
+      //   margin-top: 8px;
+      // }
+    }
+
+    &__header {
+      margin-top: 0;
+    }
+
+    &__title {
+      // cursor: pointer;
+      // @include title-font();
+    }
+
+    &__rate-ring {
+      margin-left: auto;
+      // display: flex;
+      // justify-content: end;
+    }
+
+    &__date {
+      // @include date-font();
+    }
+
+    &__genres {
+      // code {
+      //   cursor: pointer;
+      //   margin-left: 0;
+      //   white-space: nowrap;
+      // }
+    }
+
+    &__body {
+      // height: initial;
+      // margin-top: 10px;
+    }
+
+    &__overview {
+      // height: 100%;
+      // overflow: hidden;
+      // text-overflow: ellipsis;
+
+      // @include overview-font();
+    }
+
+    &__footer {
+      display: flex;
+      justify-content: end;
+    }
+
+    &__rating {
+      font-size: 14px;
+      margin-top: 10px;
+      margin-right: 5px;
+    }
   }
 }

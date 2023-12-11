@@ -47,7 +47,8 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    'react/prefer-stateless-function': 'off',
+    // 'react/prefer-stateless-function': 'off',
+    'react/forbid-prop-types': 'warn',
     'react/jsx-filename-extension': [
       'warn',
       { extensions: ['.js', '.jsx'] },

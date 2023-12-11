@@ -2,12 +2,7 @@ import { Component } from 'react';
 import { Col } from 'antd';
 
 import './App.scss';
-import {
-  ConnectionAlert,
-  Loader,
-  NavTabs,
-  Pagination,
-} from './app/components';
+import { ConnectionAlert, Loader, NavTabs } from './app/components';
 import {
   createGuestSession,
   fetchMovieGenres,
@@ -86,15 +81,17 @@ class App extends Component {
     return (
       <>
         {!isLoading ? (
-          <Col className="content-wrapper" span={18} offset={3}>
+          <Col
+            className="content-wrapper content-wrapper--box"
+            xs={{ offset: 0, span: 24 }}
+            xl={{ offset: 3, span: 18 }}
+          >
             <NavTabs
-              movies={movies.results}
-              genres={genres}
-              onInputChange={this.handleInputChange}
-            />
-            <Pagination
               currPage={page}
               totalItems={movies.total_results}
+              movies={movies}
+              genres={genres}
+              onInputChange={this.handleInputChange}
               onPageChange={this.handlePageChange}
             />
           </Col>

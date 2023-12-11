@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
-import { Row, Col, Rate } from 'antd';
+import { Row, Col, Rate, Typography } from 'antd';
 
 import './MovieCard.scss';
+
 import { deleteMovieRating, sendMovieRating } from '../../../service';
 
 import { GenreList, Poster, RateRing } from './index';
+
+const { Title, Paragraph } = Typography;
 
 function MovieCard({
   id,
@@ -18,30 +21,45 @@ function MovieCard({
   // popularity,
   overview,
 }) {
-  // TODO Отображать установленный рейтинг
-
   const handleRateChange = (rate) => {
-    let status;
-
     if (!rate) {
-      status = deleteMovieRating(id);
+      deleteMovieRating(id);
     } else {
-      status = sendMovieRating(id, rate);
+      sendMovieRating(id, rate);
     }
-    status.then((data) => console.log(data));
   };
 
   return (
+    // <Row>
+    //   <Col xs={24} sm={8}>
+    //     <Poster title={title} posterPath={posterPath} />
+    //   </Col>
+    //   <Col xs={24} sm={16}>
+    //     <Title level={2}>Название фильма</Title>
+    //     <Paragraph ellipsis={{ rows: 3, expandable: true }}>
+    //       Описание фильма Описание фильма Описание фильма Описание
+    //       Описание фильма Описание фильма Описание фильма Описание
+    //       Описание фильма Описание фильма Описание фильма Описание
+    //       Описание фильма Описание фильма Описание фильма Описание
+    //       фильма Описание фильма Описание фильма
+    //     </Paragraph>
+    //   </Col>
+    // </Row>
+
     <Row className="movie-card movie-card--box">
-      <Col className="movie-card__poster" span={9}>
+      <Col className="movie-card__poster" xs={0} xl={9}>
         <Poster title={title} posterPath={posterPath} />
       </Col>
 
-      <Col className="movie-card__info" span={15}>
+      <Col className="movie-card__info" xl={15}>
         <Row>
-          <Col className="movie-card__head" span={24}>
+          <Col className="movie-card__poster" xs={2} xl={0}>
+            <Poster title={title} posterPath={posterPath} />
+          </Col>
+
+          <Col className="movie-card__head" xl={24}>
             <div className="movie-card__header">
-              <div className="movie-card__title">{title}</div>
+              <h5 className="movie-card__title">{title}</h5>
               <div className="movie-card__rate-ring">
                 <RateRing rate={voteAverage} />
               </div>

@@ -1,8 +1,19 @@
 .content-wrapper {
-  padding: 0 36px;
   background: #fff;
+
+  &--box {
+    padding: 0 36px;
+  }
 }
 
 body {
   background: #f7f7f7;
+}
+
+@media screen and (max-width: 1199.9px) {
+  .content-wrapper {
+    &--box {
+      padding: 0 16px;
+    }
+  }
 }
