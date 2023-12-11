@@ -15,27 +15,34 @@ class RatedMovies extends Component {
   }
 
   async componentDidMount() {
+    this.loadData();
+  }
+
+  async componentDidUpdate(prevProps) {
+    const { tabKey } = this.props;
+    if (prevProps.tabKey !== tabKey) {
+      this.loadData(500);
+    }
+  }
+
+  async loadData(serverUpdDelay) {
+    this.setState({ isLoading: true });
+
+    if (serverUpdDelay)
+      await new Promise((resolve) => {
+        setTimeout(resolve, serverUpdDelay);
+      });
+
+    const ratedMovies = await getSessionRatedMovies();
+
     this.setState({
-      ratedMovies: await getSessionRatedMovies(),
+      ratedMovies,
       isLoading: false,
     });
   }
 
-  componentDidUpdate() {
-    const { tabKey } = this.props;
-    if (tabKey !== 'search') {
-      this.handleRatedOpen();
-    }
-  }
-
-  handleRatedOpen = async () => {
-    this.setState({
-      ratedMovies: await getSessionRatedMovies(),
-    });
-  };
-
   render() {
-    const { genres, tabKey } = this.props;
+    const { genres } = this.props;
     const { ratedMovies, isLoading } = this.state;
 
     return !isLoading ? (

@@ -17,6 +17,8 @@ function MovieCard({
   // popularity,
   overview,
 }) {
+  // TODO Отображать установленный рейтинг
+
   const handleRateChange = (rate) => {
     if (!rate) return; // TODO Удалить установленную оценку
 

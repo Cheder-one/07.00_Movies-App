@@ -5,7 +5,6 @@ import './App.scss';
 import {
   ConnectionAlert,
   Loader,
-  MovieGallery,
   NavTabs,
   Pagination,
 } from './app/components';
@@ -79,6 +78,8 @@ class App extends Component {
     this.setState({ page: pageNum }, cb);
   };
 
+  // TODO Реализовать mobile версию
+
   render() {
     const { isLoading, movies, genres, page } = this.state;
 
@@ -91,7 +92,6 @@ class App extends Component {
               genres={genres}
               onInputChange={this.handleInputChange}
             />
-            {/* <MovieGallery movies={movies.results} genres={genres} /> */}
             <Pagination
               currPage={page}
               totalItems={movies.total_results}
