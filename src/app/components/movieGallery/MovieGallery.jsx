@@ -19,6 +19,7 @@ function MovieGallery({ movies, genres }) {
             genreIds={movie.genre_ids}
             overview={movie.overview}
             releaseDate={movie.release_date}
+            rating={movie.rating}
             voteAverage={movie.vote_average}
             popularity={movie.popularity}
             posterPath={movie.poster_path}

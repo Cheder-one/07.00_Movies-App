@@ -1,6 +1,7 @@
 import movieRequest from './movieRequest';
 import {
   createGuestSession,
+  deleteMovieRating,
   fetchMovieGenres,
   fetchMoviesByPopular,
   fetchMoviesByQuery,
@@ -9,6 +10,7 @@ import {
 } from './requestMethods';
 
 export {
+  deleteMovieRating,
   sendMovieRating,
   getSessionRatedMovies,
   createGuestSession,

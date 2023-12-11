@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Row, Col, Rate } from 'antd';
 
 import './MovieCard.scss';
-import { sendMovieRating } from '../../../service';
+import { deleteMovieRating, sendMovieRating } from '../../../service';
 
 import { GenreList, Poster, RateRing } from './index';
 
@@ -13,6 +13,7 @@ function MovieCard({
   releaseDate,
   genres,
   genreIds,
+  rating,
   voteAverage,
   // popularity,
   overview,
@@ -20,11 +21,14 @@ function MovieCard({
   // TODO Отображать установленный рейтинг
 
   const handleRateChange = (rate) => {
-    if (!rate) return; // TODO Удалить установленную оценку
+    let status;
 
-    sendMovieRating(id, rate).then((data) => {
-      console.log(data);
-    });
+    if (!rate) {
+      status = deleteMovieRating(id);
+    } else {
+      status = sendMovieRating(id, rate);
+    }
+    status.then((data) => console.log(data));
   };
 
   return (
@@ -60,7 +64,7 @@ function MovieCard({
             allowHalf
             count={10}
             onChange={handleRateChange}
-            defaultValue={voteAverage}
+            defaultValue={rating || voteAverage}
           />
         </Row>
       </Col>
@@ -80,6 +84,7 @@ MovieCard.propTypes = {
     })
   ).isRequired,
   genreIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+  rating: PropTypes.number,
   voteAverage: PropTypes.number.isRequired,
   // popularity: PropTypes.number.isRequired,
   overview: PropTypes.string.isRequired,
@@ -87,6 +92,7 @@ MovieCard.propTypes = {
 
 MovieCard.defaultProps = {
   posterPath: null,
+  rating: null,
 };
 
 export default MovieCard;

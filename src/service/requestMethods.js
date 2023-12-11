@@ -46,6 +46,22 @@ export const sendMovieRating = async (movieId, rating) => {
 //   console.log(data);
 // });
 
+export const deleteMovieRating = async (movieId) => {
+  const guestId = qs.stringify({ guest_session_id: getGuestId() });
+
+  try {
+    const response = await movieRequest(
+      'DELETE',
+      `/movie/${movieId}/rating?${apiKey}&${guestId}`
+    );
+    return response;
+  } catch (error) {
+    throw new Error(
+      `Ошибка при удалении оценки фильма с сервера: ${error}`
+    );
+  }
+};
+
 export const getSessionRatedMovies = async (page) => {
   const params = qs.stringify({
     page,
