@@ -62,7 +62,7 @@ export const deleteMovieRating = async (movieId) => {
   }
 };
 
-export const getSessionRatedMovies = async (page) => {
+export const getSessionRatedMovies = async (page = 1) => {
   const params = qs.stringify({
     page,
     language: 'ru-RU',

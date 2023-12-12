@@ -48,6 +48,7 @@ class NavTabs extends Component {
   render() {
     return (
       <Tabs
+        className="nav-tabs nav-tabs--box"
         items={[
           createTabItem(this.renderSearch(), 'Search'),
           createTabItem(this.renderRated(), 'Rated'),

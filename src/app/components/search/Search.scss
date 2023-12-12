@@ -13,3 +13,12 @@
 
   @include input-font;
 }
+
+/* ---- MOBILE ---- */
+@media screen and (max-width: 1199.9px) {
+  .movie-search {
+    &--box {
+      margin-bottom: 10px;
+    }
+  }
+}

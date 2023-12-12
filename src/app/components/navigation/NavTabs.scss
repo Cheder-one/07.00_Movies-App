@@ -1,0 +1,13 @@
+.nav-tabs {
+  &--box {
+    margin-top: 14px;
+  }
+}
+
+@media screen and (max-width: 1199.9px) {
+  .nav-tabs {
+    &--box {
+      margin-top: 0px;
+    }
+  }
+}

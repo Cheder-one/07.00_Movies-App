@@ -6,6 +6,11 @@ import './Pagination.scss';
 function Pagination({ totalItems, onPageChange, currPage }) {
   const handlePageChange = (page, pageSize) => {
     onPageChange(page, pageSize);
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   };
 
   return (

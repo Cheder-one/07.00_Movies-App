@@ -3,3 +3,11 @@
     padding-bottom: 38px;
   }
 }
+
+@media screen and (max-width: 1199.9px) {
+  .movie-gallery {
+    &--box {
+      padding-bottom: 20px;
+    }
+  }
+}

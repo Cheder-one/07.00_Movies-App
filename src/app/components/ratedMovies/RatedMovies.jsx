@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { getSessionRatedMovies } from '../../../service';
 import MovieGallery from '../movieGallery/MovieGallery';
-import Loader from '../Loader';
+import Loader from '../loader/Loader';
 
 class RatedMovies extends Component {
   constructor(props) {

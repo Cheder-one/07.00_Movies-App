@@ -9,7 +9,7 @@ function GenreList({ ids, genres, className }) {
       {ids.map((id) => {
         const genre = genres.find((item) => item.id === id);
         return (
-          <Text key={id} code className="cursor-pointer">
+          <Text key={id} code className="movie-card__genres">
             {genre.name}
           </Text>
         );
