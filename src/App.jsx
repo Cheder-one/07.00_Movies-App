@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 import { Component } from 'react';
 import { Col } from 'antd';
+import { debounce } from 'lodash';
 
-import './App.scss';
 import { ConnectionAlert, Loader, NavTabs } from './app/components';
 import {
   createGuestSession,
@@ -9,7 +11,7 @@ import {
   fetchMoviesByPopular,
   fetchMoviesByQuery,
 } from './service';
-import { Debounce } from './app/hooks';
+import './App.scss';
 
 class App extends Component {
   constructor(props) {
@@ -23,7 +25,8 @@ class App extends Component {
       isLoading: true,
     };
 
-    this.debounceQuery = new Debounce(this.getMoviesByQuery, 400);
+    // this.debounceQuery = new Debounce(this.getMoviesByQuery, 400);
+    this.debounceQuery = debounce(this.getMoviesByQuery, 400);
   }
 
   async componentDidMount() {
@@ -35,10 +38,21 @@ class App extends Component {
     createGuestSession();
   }
 
+  componentDidUpdate(pp, ps) {
+    const { movies } = this.state;
+
+    if (ps.movies !== movies) {
+      this.setState({ isLoading: false });
+    }
+  }
+
   getMoviesByQuery = async (query, page) => {
-    this.setState({
-      movies: await fetchMoviesByQuery(query, page),
-    });
+    const setMovies = async () => {
+      const movies = await fetchMoviesByQuery(query, page);
+      this.setState({ movies });
+    };
+
+    this.setState({ isLoading: true }, setMovies);
   };
 
   getMoviesByPopular = async (page) => {
@@ -47,14 +61,13 @@ class App extends Component {
     });
   };
 
-  getMoviesPage = (isDebounce) => {
+  getMoviesOnPage = (isDebounce) => {
     const { query, page } = this.state;
-    const { debFunc } = this.debounceQuery;
 
     if (!query) {
       this.getMoviesByPopular(page);
     } else if (isDebounce) {
-      debFunc(query, page);
+      this.debounceQuery(query, page);
     } else {
       this.getMoviesByQuery(query, page);
     }
@@ -62,18 +75,18 @@ class App extends Component {
 
   handleInputChange = async (query) => {
     const value = query.trim();
-    const cb = () => this.getMoviesPage(true);
+    const cb = () => this.getMoviesOnPage(true);
 
     this.setState({ page: 1 });
     this.setState({ query: value }, cb);
   };
 
   handlePageChange = (pageNum) => {
-    const cb = () => this.getMoviesPage(true);
+    this.setState({ isLoading: true });
+
+    const cb = () => this.getMoviesOnPage();
     this.setState({ page: pageNum }, cb);
   };
-
-  // TODO Реализовать mobile версию
 
   render() {
     const { isLoading, movies, genres, page } = this.state;
