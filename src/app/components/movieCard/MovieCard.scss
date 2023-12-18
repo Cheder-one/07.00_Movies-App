@@ -28,6 +28,7 @@
 $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 
 .movie-card {
+  max-width: 454px;
   height: 280px;
   box-shadow: $shadow-2;
 
@@ -115,7 +116,8 @@ $shadow-2: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
 /* ---- MOBILE ---- */
 @media screen and (max-width: 1199.9px) {
   .movie-card {
-    // height: 245px;
+    width: 387px;
+    height: 245px;
 
     &--box {
       padding: 10px;

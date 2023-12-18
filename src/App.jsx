@@ -65,27 +65,32 @@ class App extends Component {
     });
   };
 
-  getMoviesByQuery = async (query, page) => {
+  getMoviesByQuery = (query, page) => {
     if (!query.trim()) return;
-    try {
-      const movies = await fetchMoviesByQuery(query, page);
 
-      const cb = () => this.setState({ movies });
+    try {
+      const cb = async () => {
+        const movies = await fetchMoviesByQuery(query, page);
+        this.setState({ movies });
+      };
+
       this.setState({ isLoading: true }, cb);
     } catch (error) {
       this.handleError(error);
     }
   };
 
-  getMoviesByPopular = async (page) => {
-    try {
-      const movies = await fetchMoviesByPopular(page);
+  getMoviesByPopular = (page) => {
+    const cb = async () => {
+      try {
+        const movies = await fetchMoviesByPopular(page);
+        this.setState({ movies });
+      } catch (error) {
+        this.handleError(error);
+      }
+    };
 
-      const cb = () => this.setState({ movies });
-      this.setState({ isLoading: true }, cb);
-    } catch (error) {
-      this.handleError(error);
-    }
+    this.setState({ isLoading: true }, cb);
   };
 
   getMoviesOnPage = (isDebounce) => {
@@ -116,7 +121,6 @@ class App extends Component {
   render() {
     const { isLoading, movies, genres, page, query, error } =
       this.state;
-    console.log(isLoading);
 
     return (
       <>

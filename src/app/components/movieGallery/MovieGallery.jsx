@@ -9,10 +9,11 @@ function MovieGallery({ movies, genres }) {
   return (
     <Row
       className="movie-gallery movie-gallery--box"
+      justify="center"
       gutter={[36, 36]}
     >
       {movies.map((movie) => (
-        <Col key={movie.id} xs={24} xl={12}>
+        <Col key={movie.id}>
           <MovieCard
             id={movie.id}
             title={movie.title}
