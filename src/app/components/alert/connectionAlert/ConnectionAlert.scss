@@ -8,6 +8,7 @@
 @keyframes fadeOut {
   0% {
     opacity: 1;
+    display: flex;
   }
   100% {
     opacity: 0;
@@ -17,5 +18,5 @@
 
 .fade-out {
   animation: fadeOut 0.5s forwards;
-  animation-delay: 4s;
+  animation-delay: 6.5s;
 }

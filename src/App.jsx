@@ -1,17 +1,23 @@
-/* eslint-disable import/no-extraneous-dependencies */
+import './App.scss';
 
-import { Component } from 'react';
-import { Col } from 'antd';
+import { Component, createContext } from 'react';
 import { debounce } from 'lodash';
+import { Col } from 'antd';
 
-import { ConnectionAlert, Loader, NavTabs } from './app/components';
 import {
   createGuestSession,
   fetchMovieGenres,
   fetchMoviesByPopular,
   fetchMoviesByQuery,
 } from './service';
-import './App.scss';
+import {
+  ConnectionAlert,
+  Error,
+  Loader,
+  NavTabs,
+} from './app/components';
+
+export const SearchContext = createContext();
 
 class App extends Component {
   constructor(props) {
@@ -20,51 +26,73 @@ class App extends Component {
     this.state = {
       movies: [],
       genres: [],
-      query: '',
       page: 1,
+      query: '',
+      error: '',
       isLoading: true,
     };
 
-    // this.debounceQuery = new Debounce(this.getMoviesByQuery, 400);
-    this.debounceQuery = debounce(this.getMoviesByQuery, 400);
+    this.debounceQuery = debounce(this.getMoviesByQuery, 1000);
   }
 
   async componentDidMount() {
-    this.setState({
-      movies: await fetchMoviesByPopular(),
-      genres: await fetchMovieGenres(),
-      isLoading: false,
-    });
-    createGuestSession();
+    try {
+      this.setState({
+        movies: await fetchMoviesByPopular(),
+        genres: await fetchMovieGenres(),
+      });
+    } catch (error) {
+      this.setState({ error: error.info });
+    } finally {
+      createGuestSession();
+    }
   }
 
-  componentDidUpdate(pp, ps) {
+  async componentDidUpdate(pvp, pvs) {
     const { movies } = this.state;
 
-    if (ps.movies !== movies) {
+    if (pvs.movies !== movies) {
       this.setState({ isLoading: false });
     }
   }
 
-  getMoviesByQuery = async (query, page) => {
-    const setMovies = async () => {
-      const movies = await fetchMoviesByQuery(query, page);
-      this.setState({ movies });
-    };
+  handleError = async (error) => {
+    const movies = await fetchMoviesByPopular(1);
+    this.setState({
+      movies,
+      page: 1,
+      isLoading: false,
+      error: error.info,
+    });
+  };
 
-    this.setState({ isLoading: true }, setMovies);
+  getMoviesByQuery = async (query, page) => {
+    try {
+      const movies = await fetchMoviesByQuery(query, page);
+
+      const cb = () => this.setState({ movies });
+      this.setState({ isLoading: true }, cb);
+    } catch (error) {
+      this.handleError(error);
+    }
   };
 
   getMoviesByPopular = async (page) => {
-    this.setState({
-      movies: await fetchMoviesByPopular(page),
-    });
+    try {
+      const movies = await fetchMoviesByPopular(page);
+
+      const cb = () => this.setState({ movies });
+      this.setState({ isLoading: true }, cb);
+    } catch (error) {
+      this.handleError(error);
+    }
   };
 
   getMoviesOnPage = (isDebounce) => {
     const { query, page } = this.state;
 
     if (!query) {
+      this.debounceQuery.cancel();
       this.getMoviesByPopular(page);
     } else if (isDebounce) {
       this.debounceQuery(query, page);
@@ -74,22 +102,20 @@ class App extends Component {
   };
 
   handleInputChange = async (query) => {
-    const value = query.trim();
     const cb = () => this.getMoviesOnPage(true);
-
     this.setState({ page: 1 });
-    this.setState({ query: value }, cb);
+    this.setState({ query }, cb);
   };
 
   handlePageChange = (pageNum) => {
-    this.setState({ isLoading: true });
-
     const cb = () => this.getMoviesOnPage();
+    this.setState({ isLoading: true });
     this.setState({ page: pageNum }, cb);
   };
 
   render() {
-    const { isLoading, movies, genres, page } = this.state;
+    const { isLoading, movies, genres, page, query, error } =
+      this.state;
 
     return (
       <>
@@ -99,18 +125,21 @@ class App extends Component {
             xs={{ offset: 0, span: 24 }}
             xl={{ offset: 3, span: 18 }}
           >
-            <NavTabs
-              currPage={page}
-              totalItems={movies.total_results}
-              movies={movies}
-              genres={genres}
-              onInputChange={this.handleInputChange}
-              onPageChange={this.handlePageChange}
-            />
+            <SearchContext.Provider value={query}>
+              <NavTabs
+                movies={movies}
+                genres={genres}
+                currPage={page}
+                totalItems={movies.total_results}
+                onInputChange={this.handleInputChange}
+                onPageChange={this.handlePageChange}
+              />
+            </SearchContext.Provider>
           </Col>
         ) : (
           <Loader />
         )}
+        {error && <Error error={error} />}
         <ConnectionAlert />
       </>
     );

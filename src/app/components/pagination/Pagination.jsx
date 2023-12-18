@@ -20,6 +20,7 @@ function Pagination({ totalItems, onPageChange, currPage }) {
         current={currPage}
         defaultCurrent={1}
         pageSize={20}
+        showQuickJumper
         showSizeChanger={false}
         onChange={handlePageChange}
         total={totalItems}

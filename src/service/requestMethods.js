@@ -1,6 +1,7 @@
-// eslint-disable-next-line
+/* eslint-disable consistent-return */
 import qs from 'qs';
-import { API_KEY } from '../app/utils';
+
+import { API_KEY, throwNewErr } from '../app/utils';
 
 import movieRequest from './movieRequest';
 
@@ -17,10 +18,9 @@ export const createGuestSession = async () => {
 
       const data = response.guest_session_id;
       sessionStorage.setItem('guestSessionId', data);
-    } catch (error) {
-      throw new Error(
-        `Ошибка при создании гостевой сессии: ${error}`
-      );
+    } catch (err) {
+      const info = 'Ошибка при создании гостевой сессии';
+      throwNewErr(err.message, info);
     }
 
   return sessionStorage.getItem('guestSessionId');
@@ -36,15 +36,11 @@ export const sendMovieRating = async (movieId, rating) => {
       { value: rating }
     );
     return response;
-  } catch (error) {
-    throw new Error(
-      `Ошибка при отправке оценки фильма на сервер: ${error}`
-    );
+  } catch (err) {
+    const info = 'Ошибка при отправке оценки фильма на сервер';
+    throwNewErr(err.message, info);
   }
 };
-// sendMovieRating(346, 10).then((data) => {
-//   console.log(data);
-// });
 
 export const deleteMovieRating = async (movieId) => {
   const guestId = qs.stringify({ guest_session_id: getGuestId() });
@@ -55,10 +51,9 @@ export const deleteMovieRating = async (movieId) => {
       `/movie/${movieId}/rating?${apiKey}&${guestId}`
     );
     return response;
-  } catch (error) {
-    throw new Error(
-      `Ошибка при удалении оценки фильма с сервера: ${error}`
-    );
+  } catch (err) {
+    const info = 'Ошибка при удалении оценки фильма с сервера';
+    throwNewErr(err.message, info);
   }
 };
 
@@ -75,16 +70,11 @@ export const getSessionRatedMovies = async (page = 1) => {
       `/guest_session/${getGuestId()}/rated/movies?api_key=${API_KEY}&${params}`
     );
     return response;
-  } catch (error) {
-    throw new Error(
-      `Ошибка при получении списка оцененных фильмов: ${error}`
-    );
+  } catch (err) {
+    const info = 'Ошибка при получении списка оцененных фильмов';
+    throwNewErr(err.message, info);
   }
 };
-
-// getSessionRatedMovies().then((data) => {
-//   console.log(data);
-// });
 
 export const fetchMoviesByPopular = async (page) => {
   const params = qs.stringify({
@@ -103,10 +93,9 @@ export const fetchMoviesByPopular = async (page) => {
       `/discover/movie?${apiKey}&${params}`
     );
     return response;
-  } catch (error) {
-    throw new Error(
-      `Ошибка при получении списка популярных фильмов: ${error}`
-    );
+  } catch (err) {
+    const info = 'Ошибка при получении списка популярных фильмов';
+    throwNewErr(err.message, info);
   }
 };
 
@@ -117,8 +106,9 @@ export const fetchMovieGenres = async () => {
       `/genre/movie/list?${apiKey}`
     );
     return response.genres;
-  } catch (error) {
-    throw new Error(`Ошибка при получении списка жанров: ${error}`);
+  } catch (err) {
+    const info = 'Ошибка при получении списка жанров';
+    throwNewErr(err.message, info);
   }
 };
 
@@ -136,7 +126,8 @@ export const fetchMoviesByQuery = async (query, page) => {
       `/search/movie?${apiKey}&${params}`
     );
     return response;
-  } catch (error) {
-    throw new Error(`Ошибка при получении списка фильмов: ${error}`);
+  } catch (err) {
+    const info = 'Ошибка при получении списка фильмов по запросу';
+    throwNewErr(err.message, info);
   }
 };

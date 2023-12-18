@@ -1,8 +1,9 @@
+import './MovieGallery.scss';
+
 import PropTypes from 'prop-types';
 import { Row, Col, Empty } from 'antd';
 
-import './MovieGallery.scss';
-import MovieCard from '../movieCard/MovieCard';
+import { MovieCard } from '../index';
 
 function MovieGallery({ movies, genres }) {
   return (

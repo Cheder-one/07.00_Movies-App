@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { Alert } from 'antd';
 
 import './ConnectionAlert.scss';
-import { ConnectionCheck } from '../../hooks';
+import { ConnectionCheck } from '../../../hooks';
 
 class ConnectionAlert extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ class ConnectionAlert extends Component {
 
     setTimeout(() => {
       this.setState({ isConnectionLost: false });
-    }, 5000);
+    }, 7000);
   };
 
   handleConnectionRestored = () => {
@@ -40,7 +40,7 @@ class ConnectionAlert extends Component {
 
     setTimeout(() => {
       this.setState({ isConnectionRestored: false });
-    }, 5000);
+    }, 7000);
   };
 
   render() {

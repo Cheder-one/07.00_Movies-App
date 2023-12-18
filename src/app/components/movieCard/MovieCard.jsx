@@ -1,12 +1,11 @@
-import { useRef } from 'react';
-import PropTypes from 'prop-types';
-import { Row, Col, Rate, Typography } from 'antd';
-
 import './MovieCard.scss';
 
-import { deleteMovieRating, sendMovieRating } from '../../../service';
+import PropTypes from 'prop-types';
+import { useRef, useState } from 'react';
+import { Row, Col, Rate, Typography } from 'antd';
+
 import { useContentOverflow } from '../../hooks';
-import { cropOverview } from '../../utils';
+import { deleteMovieRating, sendMovieRating } from '../../../service';
 
 import { GenreList, Poster, RateRing } from '.';
 
@@ -19,20 +18,25 @@ function MovieCard({
   releaseDate,
   genres,
   genreIds,
-  rating,
   voteAverage,
   overview,
 }) {
-  const overviewRef = useRef();
+  const [rateValue, setRateValue] = useState(
+    +sessionStorage.getItem(`movieRating_${id}`)
+  );
 
+  const overviewRef = useRef();
   useContentOverflow(overviewRef);
 
   const handleRateChange = (rate) => {
     if (!rate) {
       deleteMovieRating(id);
+      sessionStorage.removeItem(`movieRating_${id}`);
     } else {
       sendMovieRating(id, rate);
+      sessionStorage.setItem(`movieRating_${id}`, rate);
     }
+    setRateValue(+sessionStorage.getItem(`movieRating_${id}`));
   };
 
   return (
@@ -60,7 +64,6 @@ function MovieCard({
               </div>
             </div>
             <div className="movie-card__date">{releaseDate}</div>
-
             <GenreList
               className="movie-card__genre-list"
               ids={genreIds}
@@ -77,8 +80,8 @@ function MovieCard({
             className="movie-card__rating"
             allowHalf
             count={10}
+            value={rateValue}
             onChange={handleRateChange}
-            defaultValue={rating || voteAverage}
           />
         </Row>
       </Col>
@@ -98,14 +101,12 @@ MovieCard.propTypes = {
     })
   ).isRequired,
   genreIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-  rating: PropTypes.number,
   voteAverage: PropTypes.number.isRequired,
   overview: PropTypes.string.isRequired,
 };
 
 MovieCard.defaultProps = {
   posterPath: null,
-  rating: null,
 };
 
 export default MovieCard;

@@ -1,18 +1,22 @@
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
 
-// eslint-disable-next-line import/no-cycle
 import { MovieGallery, Pagination, Search } from '../components';
+import { SearchContext } from '../../App';
 
 function MoviesPage({
   movies,
   genres,
   currPage,
+  // searchValue,
   onInputChange,
   onPageChange,
 }) {
+  const searchValue = useContext(SearchContext);
+
   return (
     <>
-      <Search onInputChange={onInputChange} />
+      <Search onInputChange={onInputChange} value={searchValue} />
       <MovieGallery movies={movies.results} genres={genres} />
       <Pagination
         currPage={currPage}
@@ -32,6 +36,7 @@ MoviesPage.propTypes = {
     })
   ).isRequired,
   currPage: PropTypes.number.isRequired,
+  // searchValue: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
 };

@@ -10,5 +10,21 @@
     //     "cssPropOptimization": true
     //   }
     // ]
+    // [
+    //   "module-resolver",
+    //   {
+    //     "root": ["."],
+    //     "alias": {
+    //       "@alert": "./src/app/components/alert",
+    //       "@loader": "./src/app/components/loader",
+    //       "@movieCard": "./src/app/components/movieCard",
+    //       "@movieGallery": "./src/app/components/movieGallery",
+    //       "@navigation": "./src/app/components/navigation",
+    //       "@pagination": "./src/app/components/pagination",
+    //       "@ratedMovies": "./src/app/components/ratedMovies",
+    //       "@search": "./src/app/components/search"
+    //     }
+    //   }
+    // ]
   ]
 }

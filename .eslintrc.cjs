@@ -47,7 +47,6 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
-    // 'react/prefer-stateless-function': 'off',
     'react/forbid-prop-types': 'warn',
     'react/jsx-filename-extension': [
       'warn',
@@ -60,6 +59,11 @@ module.exports = {
         varsIgnorePattern: 'jsx',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: true },
+    ],
+    'import/no-cycle': 'off',
     // '@emotion/jsx-import': 'error',
     // '@emotion/import-from-emotion': 'error',
     // '@emotion/styled-import': 'error',
@@ -89,6 +93,19 @@ module.exports = {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         moduleDirectory: ['node_modules', 'src/'],
       },
+      // alias: {
+      //   map: [
+      //     ['@alert', './src/app/components/alert'],
+      //     ['@loader', './src/app/components/loader'],
+      //     ['@movieCard', './src/app/components/movieCard'],
+      //     ['@movieGallery', './src/app/components/movieGallery'],
+      //     ['@navigation', './src/app/components/navigation'],
+      //     ['@pagination', './src/app/components/pagination'],
+      //     ['@ratedMovies', './src/app/components/ratedMovies'],
+      //     ['@search', './src/app/components/search'],
+      //   ],
+      //   extensions: ['.jsx'],
+      // },
     },
   },
 };

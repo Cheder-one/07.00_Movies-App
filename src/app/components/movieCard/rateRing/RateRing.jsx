@@ -1,32 +1,29 @@
 import PropTypes from 'prop-types';
+import { Progress } from 'antd';
 
 function RateRing({ rate }) {
-  const rateValue = rate.toFixed(1);
+  const score = rate.toFixed(1);
+
+  let strokeColor = '';
+
+  if (score >= 0 && score < 3) {
+    strokeColor = '#E90000';
+  } else if (score >= 3 && score < 5) {
+    strokeColor = '#E97E00';
+  } else if (score >= 5 && score < 7) {
+    strokeColor = '#E9D100';
+  } else {
+    strokeColor = '#66E900';
+  }
+
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="34"
-      height="34"
-      viewBox="0 0 34 34"
-      fill="none"
-    >
-      <circle
-        cx="17"
-        cy="17"
-        r="16"
-        stroke="#E9D100"
-        strokeWidth="2"
-      />
-      <text
-        x="50%"
-        y="53%"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        fill="black"
-      >
-        {rateValue}
-      </text>
-    </svg>
+    <Progress
+      size={34}
+      type="circle"
+      percent={score * 10}
+      format={() => score}
+      strokeColor={strokeColor}
+    />
   );
 }
 

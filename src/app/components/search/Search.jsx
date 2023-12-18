@@ -1,9 +1,9 @@
-import { Input } from 'antd';
-import PropTypes from 'prop-types';
-
 import './Search.scss';
 
-function Search({ onInputChange }) {
+import PropTypes from 'prop-types';
+import { Input } from 'antd';
+
+function Search({ value, onInputChange }) {
   const handleInputChange = (event) => {
     onInputChange(event.target.value);
   };
@@ -12,6 +12,7 @@ function Search({ onInputChange }) {
     <Input
       className="movie-search movie-search--box"
       placeholder="Type to search..."
+      value={value}
       autoFocus
       onChange={handleInputChange}
     />
@@ -19,6 +20,7 @@ function Search({ onInputChange }) {
 }
 
 Search.propTypes = {
+  value: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
 };
 
