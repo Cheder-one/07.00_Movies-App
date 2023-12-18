@@ -13,7 +13,7 @@ function Poster({ title, posterPath }) {
       preview={{
         src: `${IMAGE_DOMAIN}/w1280${posterPath}`,
       }}
-      fallback="src/app/assets/no-image.svg"
+      fallback="./src/app/assets/no-image.svg"
     />
   );
 }
