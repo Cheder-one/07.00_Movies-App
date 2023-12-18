@@ -1,7 +1,6 @@
+import './Pagination.scss';
 import PropTypes from 'prop-types';
 import { Pagination as Paginate, Flex } from 'antd';
-
-import './Pagination.scss';
 
 function Pagination({
   totalItems,
@@ -21,7 +20,7 @@ function Pagination({
     >
       {totalItems > pageSize ? (
         <Paginate
-          total={totalItems}
+          total={Math.min(totalItems, 10000)}
           current={currPage}
           pageSize={pageSize}
           defaultCurrent={1}
