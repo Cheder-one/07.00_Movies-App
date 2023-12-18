@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 import { IMAGE_DOMAIN } from '../../../utils';
 import noImgSrc from '../../../assets/no-image.svg';
 
-// const noImage = new Image();
-// noImage.src = noImgSrc;
-
 function Poster({ title, posterPath }) {
   return (
     <Image
