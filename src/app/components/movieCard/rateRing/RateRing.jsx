@@ -16,12 +16,16 @@ function RateRing({ rate }) {
     strokeColor = '#66E900';
   }
 
+  const formatProgress = () => {
+    return <span style={{ color: 'black' }}>{score}</span>;
+  };
+
   return (
     <Progress
-      size={34}
+      size={30}
       type="circle"
-      percent={score * 10}
-      format={() => score}
+      percent={100}
+      format={formatProgress}
       strokeColor={strokeColor}
     />
   );

@@ -20,7 +20,7 @@ function MoviesPage({
       <MovieGallery movies={movies.results} genres={genres} />
       <Pagination
         currPage={currPage}
-        totalItems={movies.total_results - 2000}
+        totalItems={movies.total_results}
         onPageChange={onPageChange}
       />
     </>

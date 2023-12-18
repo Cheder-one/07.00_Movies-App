@@ -3,6 +3,7 @@ import './MovieCard.scss';
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 import { Row, Col, Rate, Typography } from 'antd';
+import { format } from 'date-fns';
 
 import { useContentOverflow } from '../../hooks';
 import { deleteMovieRating, sendMovieRating } from '../../../service';
@@ -39,6 +40,10 @@ function MovieCard({
     setRateValue(+sessionStorage.getItem(`movieRating_${id}`));
   };
 
+  const formatMovieDate = (date) => {
+    return format(new Date(date), 'MMMM d, yyyy');
+  };
+
   return (
     <Row className="movie-card movie-card--box">
       <Col className="movie-card__poster" xs={0} xl={9}>
@@ -63,7 +68,9 @@ function MovieCard({
                 <RateRing rate={voteAverage} />
               </div>
             </div>
-            <div className="movie-card__date">{releaseDate}</div>
+            <div className="movie-card__date">
+              {formatMovieDate(releaseDate)}
+            </div>
             <GenreList
               className="movie-card__genre-list"
               ids={genreIds}

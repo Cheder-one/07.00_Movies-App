@@ -3,28 +3,33 @@ import { Pagination as Paginate, Flex } from 'antd';
 
 import './Pagination.scss';
 
-function Pagination({ totalItems, onPageChange, currPage }) {
-  const handlePageChange = (page, pageSize) => {
-    onPageChange(page, pageSize);
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+function Pagination({
+  totalItems,
+  onPageChange,
+  currPage,
+  pageSize,
+}) {
+  const handlePageChange = (page, size) => {
+    onPageChange(page, size);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <Flex justify="center">
-      <Paginate
-        className="movie-pagination movie-pagination--box"
-        current={currPage}
-        defaultCurrent={1}
-        pageSize={20}
-        showQuickJumper
-        showSizeChanger={false}
-        onChange={handlePageChange}
-        total={totalItems}
-      />
+    <Flex
+      className="movie-pagination movie-pagination--box"
+      justify={totalItems > pageSize ? 'center' : 'flex-start'}
+    >
+      {totalItems > pageSize ? (
+        <Paginate
+          total={totalItems}
+          current={currPage}
+          pageSize={pageSize}
+          defaultCurrent={1}
+          showQuickJumper
+          showSizeChanger={false}
+          onChange={handlePageChange}
+        />
+      ) : null}
     </Flex>
   );
 }
@@ -33,6 +38,11 @@ Pagination.propTypes = {
   totalItems: PropTypes.number.isRequired,
   onPageChange: PropTypes.func.isRequired,
   currPage: PropTypes.number.isRequired,
+  pageSize: PropTypes.number,
+};
+
+Pagination.defaultProps = {
+  pageSize: 20,
 };
 
 export default Pagination;
