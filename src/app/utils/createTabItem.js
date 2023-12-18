@@ -1,7 +1,7 @@
-const createTabItem = (item, name) => ({
+const createTabItem = (node, name) => ({
   label: name,
   key: name.toLowerCase(),
-  children: item,
+  children: node,
 });
 
 export default createTabItem;

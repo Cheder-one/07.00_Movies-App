@@ -1,19 +1,15 @@
 import PropTypes from 'prop-types';
-import { useContext } from 'react';
 
 import { MovieGallery, Pagination, Search } from '../components';
-import { SearchContext } from '../../App';
 
 function MoviesPage({
   movies,
   genres,
   currPage,
-  // searchValue,
+  searchValue,
   onInputChange,
   onPageChange,
 }) {
-  const searchValue = useContext(SearchContext);
-
   return (
     <>
       <Search onInputChange={onInputChange} value={searchValue} />
@@ -36,7 +32,7 @@ MoviesPage.propTypes = {
     })
   ).isRequired,
   currPage: PropTypes.number.isRequired,
-  // searchValue: PropTypes.string.isRequired,
+  searchValue: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
 };

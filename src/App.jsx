@@ -1,6 +1,6 @@
 import './App.scss';
 
-import { Component, createContext } from 'react';
+import { Component } from 'react';
 import { debounce } from 'lodash';
 import { Col } from 'antd';
 
@@ -16,8 +16,7 @@ import {
   Loader,
   NavTabs,
 } from './app/components';
-
-export const SearchContext = createContext();
+import { GenreContext, SearchContext } from './app/contexts';
 
 class App extends Component {
   constructor(props) {
@@ -67,6 +66,7 @@ class App extends Component {
   };
 
   getMoviesByQuery = async (query, page) => {
+    if (!query.trim()) return;
     try {
       const movies = await fetchMoviesByQuery(query, page);
 
@@ -116,6 +116,7 @@ class App extends Component {
   render() {
     const { isLoading, movies, genres, page, query, error } =
       this.state;
+    console.log(isLoading);
 
     return (
       <>
@@ -126,14 +127,15 @@ class App extends Component {
             xl={{ offset: 3, span: 18 }}
           >
             <SearchContext.Provider value={query}>
-              <NavTabs
-                movies={movies}
-                genres={genres}
-                currPage={page}
-                totalItems={movies.total_results}
-                onInputChange={this.handleInputChange}
-                onPageChange={this.handlePageChange}
-              />
+              <GenreContext.Provider value={genres}>
+                <NavTabs
+                  movies={movies}
+                  currPage={page}
+                  totalItems={movies.total_results}
+                  onInputChange={this.handleInputChange}
+                  onPageChange={this.handlePageChange}
+                />
+              </GenreContext.Provider>
             </SearchContext.Provider>
           </Col>
         ) : (

@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 import { Tabs } from 'antd';
 
-import { MoviesPage, RatedMoviesPage } from '../../pages';
 import { createTabItem } from '../../utils';
+import { MoviesPage, RatedMoviesPage } from '../../pages';
+import { GenreContext, SearchContext } from '../../contexts';
 
 class NavTabs extends Component {
   constructor(props) {
@@ -20,50 +21,55 @@ class NavTabs extends Component {
     this.setState({ tabKey });
   };
 
-  renderSearch() {
+  renderSearch(...args) {
     const { props } = this;
+    const [query, genres] = args;
     return (
       <MoviesPage
         movies={props.movies}
-        genres={props.genres}
+        genres={genres}
+        searchValue={query}
         currPage={props.currPage}
-        // searchValue={props.searchValue}
         onInputChange={props.onInputChange}
         onPageChange={props.onPageChange}
       />
     );
   }
 
-  renderRated() {
+  renderRated(genres) {
     const { tabKey } = this.state;
-    const { genres } = this.props;
     return <RatedMoviesPage {...{ genres, tabKey }} />;
   }
 
-  render() {
+  renderTabs = (query, genres) => {
     return (
       <Tabs
         className="nav-tabs nav-tabs--box"
-        items={[
-          createTabItem(this.renderSearch(), 'Search'),
-          createTabItem(this.renderRated(), 'Rated'),
-        ]}
         centered
+        items={[
+          createTabItem(this.renderSearch(query, genres), 'Search'),
+          createTabItem(this.renderRated(genres), 'Rated'),
+        ]}
         onChange={this.handleTabChange}
       />
+    );
+  };
+
+  render() {
+    return (
+      <SearchContext.Consumer>
+        {(query) => (
+          <GenreContext.Consumer>
+            {(genres) => this.renderTabs(query, genres)}
+          </GenreContext.Consumer>
+        )}
+      </SearchContext.Consumer>
     );
   }
 }
 
 NavTabs.propTypes = {
   movies: PropTypes.object.isRequired,
-  genres: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  // searchValue: PropTypes.string.isRequired,
   currPage: PropTypes.number.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
