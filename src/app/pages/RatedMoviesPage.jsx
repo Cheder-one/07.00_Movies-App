@@ -22,9 +22,10 @@ class RatedMoviesPage extends Component {
   }
 
   async componentDidUpdate(pvp, pvs) {
+    const { tabKey } = this.props;
     const { isLoading, ratedMovies } = this.state;
 
-    if (!isLoading && pvp.tabKey !== 'rated') {
+    if (!isLoading && pvp.tabKey !== 'rated' && tabKey === 'rated') {
       this.loadData(700);
     }
 
@@ -44,7 +45,7 @@ class RatedMoviesPage extends Component {
     this.setState({ ratedMovies });
   };
 
-  async loadData(serverUpdDelay = 1000) {
+  async loadData(serverUpdDelay = 700) {
     this.setState({ isLoading: true });
 
     await new Promise((resolve) => {
@@ -74,6 +75,7 @@ class RatedMoviesPage extends Component {
 }
 
 RatedMoviesPage.propTypes = {
+  tabKey: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
